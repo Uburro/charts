@@ -1798,6 +1798,9 @@ metrics:
     ## @param metrics.jmx.enabled Whether or not to expose JMX metrics to Prometheus
     ##
     enabled: false
+    ## @param metrics.jmx.kafkaJmxPort JMX port where the exporter will collect metrics, exposed in the Kafka container.
+    ##
+    kafkaJmxPort: 5555
     ## Bitnami JMX exporter image
     ## ref: https://hub.docker.com/r/bitnami/jmx-exporter/tags/
     ## @param metrics.jmx.image.registry JMX exporter image registry
@@ -1892,7 +1895,7 @@ metrics:
     ## https://github.com/helm/charts/tree/master/incubator/kafka
     ##
     config: |-
-      jmxUrl: service:jmx:rmi:///jndi/rmi://127.0.0.1:5555/jmxrmi
+      jmxUrl: service:jmx:rmi:///jndi/rmi://127.0.0.1:{{ .Values.metrics.jmx.kafkaJmxPort }}/jmxrmi
       lowercaseOutputName: true
       lowercaseOutputLabelNames: true
       ssl: false

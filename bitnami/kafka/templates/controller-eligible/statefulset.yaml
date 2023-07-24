@@ -189,7 +189,7 @@ spec:
             {{- end }}
             {{- if .Values.metrics.jmx.enabled }}
             - name: JMX_PORT
-              value: "5555"
+              value: {{ .Values.metrics.jmx.kafkaJmxPort | quote }}
             {{- end }}
             {{- if .Values.controller.extraEnvVars }}
             {{- include "common.tplvalues.render" ( dict "value" .Values.controller.extraEnvVars "context" $) | nindent 12 }}
