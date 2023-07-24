@@ -21,6 +21,14 @@ listeners:
     port: 9194
   external:
     port: 9195
+service:
+  ports:
+    client:
+      port: 19092
+    controller:
+      port: 19093
+    interbroker:
+      port: 19094
 controller:
   logPersistence:
     mountPath: /opt/bitnami/kafka/logs

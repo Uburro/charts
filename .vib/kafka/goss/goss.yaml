@@ -21,7 +21,7 @@ file:
       - listeners=INTERNAL://:{{ .Vars.listeners.interbroker.port }},CLIENT://:{{ .Vars.listeners.client.port }},CONTROLLER://:{{ .Vars.listeners.controller.port }},EXTERNAL://:{{ .Vars.listeners.external.port }}
 command:
   create-kafka-topic:
-    exec: kafka-topics.sh --create --topic quickstart-events{{randAlpha 5}} --bootstrap-server kafka:{{ .Vars.listeners.client.port }}
+    exec: kafka-topics.sh --create --topic quickstart-events{{randAlpha 5}} --bootstrap-server kafka:{{ .Vars.service.ports.client }}
     exit-status: 0
     timeout: 20000
   {{- $uid := .Vars.controller.containerSecurityContext.runAsUser }}
