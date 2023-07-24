@@ -429,7 +429,7 @@ controller:
   ## @param controller.replicaCount Number of Kafka controller-eligible nodes
   ## Ignore this section if running in Zookeeper mode.
   ##
-  replicaCount: 1
+  replicaCount: 3
   ## @param controller.controllerOnly If set to true, controller nodes will be deployed as dedicated controllers, instead of controller+broker processes.
   ##
   controllerOnly: false
@@ -1151,10 +1151,10 @@ service:
   ## @param service.ports.external Kafka svc port for external connections
   ##
   ports:
-    client: 9092
-    controller: 9093
-    interbroker: 9094
-    external: 9095
+    client: 19092
+    controller: 19093
+    interbroker: 19094
+    external: 19095
   ## @param service.extraPorts Extra ports to expose in the Kafka service (normally used with the `sidecar` value)
   ##
   extraPorts: []

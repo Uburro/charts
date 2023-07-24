@@ -367,7 +367,7 @@ Return true if a configmap object should be created
 {{- end -}}
 
 {{/*
-Returns the controller quorum voters based on the number of controller-eligible nodes
+Returns the Kafka listeners settings based on the listeners.* object
 */}}
 {{- define "kafka.listeners" -}}
 {{- if .context.Values.listeners.overrideListeners -}}
@@ -415,7 +415,7 @@ Returns the list of advertised listeners, although the advertised address will b
 {{- end -}}
 
 {{/*
-Returns the controller quorum voters based on the number of controller-eligible nodes
+Returns the value listener.security.protocol.map based on the values of 'listeners.*.protocol'
 */}}
 {{- define "kafka.securityProtocolMap" -}}
 {{- if .Values.listeners.securityProtocolMap -}}
@@ -440,7 +440,7 @@ Returns the controller quorum voters based on the number of controller-eligible 
 {{- end -}}
 
 {{/*
-Returns the controller quorum voters based on the number of controller-eligible nodes
+Returns the containerPorts for listeneres.extraListeners
 */}}
 {{- define "kafka.extraListeners.containerPorts" -}}
 {{- range $listener := .Values.listeners.extraListeners -}}
@@ -472,7 +472,7 @@ Returns the controller quorum voters based on the number of controller-eligible 
   {{- $releaseNamespace := include "common.names.namespace" . -}}
   {{- range $i := until (int .Values.controller.replicaCount) -}}
   {{- $nodeId := add (int $i) (int $.Values.controller.minId) -}}
-  {{- $nodeAddress := printf "%s-controller-%d.%s-controller-headless.%s.svc.%s:%d" $fullname (int $i) $fullname $releaseNamespace $.Values.clusterDomain (int $.Values.service.ports.controller) -}}
+  {{- $nodeAddress := printf "%s-controller-%d.%s-controller-headless.%s.svc.%s:%d" $fullname (int $i) $fullname $releaseNamespace $.Values.clusterDomain (int $.Values.listeners.controller.port) -}}
   {{- $controllerVoters = append $controllerVoters (printf "%d@%s" $nodeId $nodeAddress ) -}}
   {{- end -}}
   {{- join "," $controllerVoters -}}
