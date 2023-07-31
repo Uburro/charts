@@ -18,7 +18,7 @@ file:
     mode: "0644"
     contains:
       - super.users={{ .Vars.acl.superUsers }}
-      - listeners=INTERNAL://:{{ .Vars.listeners.interbroker.port }},CLIENT://:{{ .Vars.listeners.client.port }},CONTROLLER://:{{ .Vars.listeners.controller.port }},EXTERNAL://:{{ .Vars.listeners.external.port }}
+      - listeners=INTERNAL://:{{ .Vars.listeners.interbroker.containerPort }},CLIENT://:{{ .Vars.listeners.client.containerPort }},CONTROLLER://:{{ .Vars.listeners.controller.containerPort }},EXTERNAL://:{{ .Vars.listeners.external.containerPort }}
 command:
   create-kafka-topic:
     exec: kafka-topics.sh --create --topic quickstart-events{{randAlpha 5}} --bootstrap-server kafka:{{ .Vars.service.ports.client }}

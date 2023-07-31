@@ -132,39 +132,39 @@ interBrokerProtocolVersion: ""
 ##
 listeners:
   ## @param listeners.client.name Name for the Kafka client listener
-  ## @param listeners.client.port Port for the Kafka client listener
+  ## @param listeners.client.containerPort Port for the Kafka client listener
   ## @param listeners.client.protocol Security protocol for the Kafka client listener. Allowed values are 'PLAINTEXT', 'SASL_PLAINTEXT', 'SASL_SSL' and 'SSL'
   ## @param listeners.client.sslClientAuth Optional. If SASL_SSL is enabled, configure mTLS TLS authentication type. If SSL protocol is enabled, overrides tls.authType for this listener. Allowed values are 'none', 'requested' and 'required'
   client:
-    port: 9092
+    containerPort: 9092
     protocol: SASL_PLAINTEXT
     name: CLIENT
     sslClientAuth: ""
   ## @param listeners.controller.name Name for the Kafka controller listener
-  ## @param listeners.controller.port Port for the Kafka controller listener
+  ## @param listeners.controller.containerPort Port for the Kafka controller listener
   ## @param listeners.controller.protocol Security protocol for the Kafka controller listener. Allowed values are 'PLAINTEXT', 'SASL_PLAINTEXT', 'SASL_SSL' and 'SSL'
   ## @param listeners.controller.sslClientAuth Optional. If SASL_SSL is enabled, configure mTLS TLS authentication type. If SSL protocol is enabled, overrides tls.authType for this listener. Allowed values are 'none', 'requested' and 'required'
   ## Ref: https://cwiki.apache.org/confluence/display/KAFKA/KIP-684+-+Support+mutual+TLS+authentication+on+SASL_SSL+listeners
   controller:
     name: CONTROLLER
-    port: 9093
+    containerPort: 9093
     protocol: SASL_PLAINTEXT
     sslClientAuth: ""
   ## @param listeners.interbroker.name Name for the Kafka inter-broker listener
-  ## @param listeners.interbroker.port Port for the Kafka inter-broker listener
+  ## @param listeners.interbroker.containerPort Port for the Kafka inter-broker listener
   ## @param listeners.interbroker.protocol Security protocol for the Kafka inter-broker listener. Allowed values are 'PLAINTEXT', 'SASL_PLAINTEXT', 'SASL_SSL' and 'SSL'
   ## @param listeners.interbroker.sslClientAuth Optional. If SASL_SSL is enabled, configure mTLS TLS authentication type. If SSL protocol is enabled, overrides tls.authType for this listener. Allowed values are 'none', 'requested' and 'required'
   interbroker:
-    port: 9094
+    containerPort: 9094
     protocol: SASL_PLAINTEXT
     name: INTERNAL
     sslClientAuth: ""
-  ## @param listeners.external.port Port for the Kafka external listener
+  ## @param listeners.external.containerPort Port for the Kafka external listener
   ## @param listeners.external.protocol Security protocol for the Kafka external listener. . Allowed values are 'PLAINTEXT', 'SASL_PLAINTEXT', 'SASL_SSL' and 'SSL'
   ## @param listeners.external.name Name for the Kafka external listener
   ## @param listeners.external.sslClientAuth Optional. If SASL_SSL is enabled, configure mTLS TLS authentication type. If SSL protocol is enabled, overrides tls.sslClientAuth for this listener. Allowed values are 'none', 'requested' and 'required'
   external:
-    port: 9095
+    containerPort: 9095
     protocol: SASL_PLAINTEXT
     name: EXTERNAL
     sslClientAuth: ""
@@ -172,7 +172,7 @@ listeners:
   ## E.g.
   ## extraListeners:
   ##  - name: CUSTOM
-  ##    port: 9097
+  ##    containerPort: 9097
   ##    protocol: SASL_PLAINTEXT
   ##    sslClientAuth: ""
   ##

@@ -386,7 +386,7 @@ Returns the Kafka listeners settings based on the listeners.* object
   {{- end -}}
   {{- $res := list -}}
   {{- range $listener := $listeners -}}
-  {{- $res = append $res (printf "%s://:%d" (upper $listener.name) (int $listener.port)) -}}
+  {{- $res = append $res (printf "%s://:%d" (upper $listener.name) (int $listener.containerPort)) -}}
   {{- end -}}
   {{- printf "%s" (join "," $res) -}}
 {{- end -}}
@@ -408,7 +408,7 @@ Returns the list of advertised listeners, although the advertised address will b
   {{- end -}}
   {{- $res := list -}}
   {{- range $listener := $listeners -}}
-  {{- $res = append $res (printf "%s://advertised-address-placeholder:%d" (upper $listener.name) (int $listener.port)) -}}
+  {{- $res = append $res (printf "%s://advertised-address-placeholder:%d" (upper $listener.name) (int $listener.containerPort)) -}}
   {{- end -}}
   {{- printf "%s" (join "," $res) -}}
 {{- end -}}
@@ -445,7 +445,7 @@ Returns the containerPorts for listeneres.extraListeners
 {{- define "kafka.extraListeners.containerPorts" -}}
 {{- range $listener := .Values.listeners.extraListeners -}}
 - name: {{ lower $listener.name}}
-  containerPort: {{ $listener.port }}
+  containerPort: {{ $listener.containerPort }}
 {{- end -}}
 {{- end -}}
 
@@ -472,7 +472,7 @@ Returns the controller quorum voters based on the number of controller-eligible 
   {{- $releaseNamespace := include "common.names.namespace" . -}}
   {{- range $i := until (int .Values.controller.replicaCount) -}}
   {{- $nodeId := add (int $i) (int $.Values.controller.minId) -}}
-  {{- $nodeAddress := printf "%s-controller-%d.%s-controller-headless.%s.svc.%s:%d" $fullname (int $i) $fullname $releaseNamespace $.Values.clusterDomain (int $.Values.listeners.controller.port) -}}
+  {{- $nodeAddress := printf "%s-controller-%d.%s-controller-headless.%s.svc.%s:%d" $fullname (int $i) $fullname $releaseNamespace $.Values.clusterDomain (int $.Values.listeners.controller.containerPort) -}}
   {{- $controllerVoters = append $controllerVoters (printf "%d@%s" $nodeId $nodeAddress ) -}}
   {{- end -}}
   {{- join "," $controllerVoters -}}

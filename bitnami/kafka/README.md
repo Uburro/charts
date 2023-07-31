@@ -96,18 +96,18 @@ The command removes all the Kubernetes components associated with the chart and 
 | `heapOpts`                            | Kafka Java Heap size                                                                                                                                                                                       | `-Xmx1024m -Xms1024m` |
 | `interBrokerProtocolVersion`          | Override the setting 'inter.broker.protocol.version' during the ZK migration.                                                                                                                              | `""`                  |
 | `listeners.client.name`               | Name for the Kafka client listener                                                                                                                                                                         | `CLIENT`              |
-| `listeners.client.port`               | Port for the Kafka client listener                                                                                                                                                                         | `9092`                |
+| `listeners.client.containerPort`               | Port for the Kafka client listener                                                                                                                                                                         | `9092`                |
 | `listeners.client.protocol`           | Security protocol for the Kafka client listener. Allowed values are 'PLAINTEXT', 'SASL_PLAINTEXT', 'SASL_SSL' and 'SSL'                                                                                    | `SASL_PLAINTEXT`      |
 | `listeners.client.sslClientAuth`      | Optional. If SASL_SSL is enabled, configure mTLS TLS authentication type. If SSL protocol is enabled, overrides tls.authType for this listener. Allowed values are 'none', 'requested' and 'required'      | `""`                  |
 | `listeners.controller.name`           | Name for the Kafka controller listener                                                                                                                                                                     | `CONTROLLER`          |
-| `listeners.controller.port`           | Port for the Kafka controller listener                                                                                                                                                                     | `9093`                |
+| `listeners.controller.containerPort`           | Port for the Kafka controller listener                                                                                                                                                                     | `9093`                |
 | `listeners.controller.protocol`       | Security protocol for the Kafka controller listener. Allowed values are 'PLAINTEXT', 'SASL_PLAINTEXT', 'SASL_SSL' and 'SSL'                                                                                | `SASL_PLAINTEXT`      |
 | `listeners.controller.sslClientAuth`  | Optional. If SASL_SSL is enabled, configure mTLS TLS authentication type. If SSL protocol is enabled, overrides tls.authType for this listener. Allowed values are 'none', 'requested' and 'required'      | `""`                  |
 | `listeners.interbroker.name`          | Name for the Kafka inter-broker listener                                                                                                                                                                   | `INTERNAL`            |
-| `listeners.interbroker.port`          | Port for the Kafka inter-broker listener                                                                                                                                                                   | `9094`                |
+| `listeners.interbroker.containerPort`          | Port for the Kafka inter-broker listener                                                                                                                                                                   | `9094`                |
 | `listeners.interbroker.protocol`      | Security protocol for the Kafka inter-broker listener. Allowed values are 'PLAINTEXT', 'SASL_PLAINTEXT', 'SASL_SSL' and 'SSL'                                                                              | `SASL_PLAINTEXT`      |
 | `listeners.interbroker.sslClientAuth` | Optional. If SASL_SSL is enabled, configure mTLS TLS authentication type. If SSL protocol is enabled, overrides tls.authType for this listener. Allowed values are 'none', 'requested' and 'required'      | `""`                  |
-| `listeners.external.port`             | Port for the Kafka external listener                                                                                                                                                                       | `9095`                |
+| `listeners.external.containerPort`             | Port for the Kafka external listener                                                                                                                                                                       | `9095`                |
 | `listeners.external.protocol`         | Security protocol for the Kafka external listener. . Allowed values are 'PLAINTEXT', 'SASL_PLAINTEXT', 'SASL_SSL' and 'SSL'                                                                                | `SASL_PLAINTEXT`      |
 | `listeners.external.name`             | Name for the Kafka external listener                                                                                                                                                                       | `EXTERNAL`            |
 | `listeners.external.sslClientAuth`    | Optional. If SASL_SSL is enabled, configure mTLS TLS authentication type. If SSL protocol is enabled, overrides tls.sslClientAuth for this listener. Allowed values are 'none', 'requested' and 'required' | `""`                  |
@@ -777,7 +777,7 @@ externalAccess.enabled=true
 externalAccess.service.broker.type=LoadBalancer
 externalAccess.service.controller.type=LoadBalancer
 externalAccess.service.broker.ports.external=9094
-externalAccess.service.controller.ports.external=9094
+externalAccess.service.controller.containerPorts.external=9094
 externalAccess.autoDiscovery.enabled=true
 serviceAccount.create=true
 rbac.create=true
@@ -790,7 +790,7 @@ Note: This option requires creating RBAC rules on clusters where RBAC policies a
 ```console
 externalAccess.enabled=true
 externalAccess.service.controller.type=LoadBalancer
-externalAccess.service.controller.ports.external=9094
+externalAccess.service.controller.containerPorts.external=9094
 externalAccess.service.controller.loadBalancerIPs[0]='external-ip-1'
 externalAccess.service.controller.loadBalancerIPs[1]='external-ip-2'
 externalAccess.service.broker.type=LoadBalancer

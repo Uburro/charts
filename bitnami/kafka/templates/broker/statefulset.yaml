@@ -227,12 +227,12 @@ spec:
           {{- end }}
           ports:
             - name: client
-              containerPort: {{ .Values.listeners.client.port }}
+              containerPort: {{ .Values.listeners.client.containerPort }}
             - name: interbroker
-              containerPort: {{ .Values.listeners.interbroker.port }}
+              containerPort: {{ .Values.listeners.interbroker.containerPort }}
             {{- if .Values.externalAccess.enabled }}
             - name: external
-              containerPort: {{ .Values.listeners.external.port }}
+              containerPort: {{ .Values.listeners.external.containerPort }}
             {{- end }}
             {{- if .Values.listeners.extraListeners }}
             {{- include "kafka.extraListeners.containerPorts" . | nindent 12 }}

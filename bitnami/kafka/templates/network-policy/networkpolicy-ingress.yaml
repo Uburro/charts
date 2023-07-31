@@ -25,7 +25,7 @@ spec:
   ingress:
     # Allow client connections
     - ports:
-        - port: {{ .Values.listeners.client.port }}
+        - port: {{ .Values.listeners.client.containerPort }}
       {{- if not .Values.networkPolicy.allowExternal }}
       from:
         - podSelector:
@@ -37,7 +37,7 @@ spec:
       {{- end }}
     # Allow communication inter-broker
     - ports:
-        - port: {{ .Values.listeners.interbroker.port }}
+        - port: {{ .Values.listeners.interbroker.containerPort }}
       from:
         - podSelector:
             matchLabels:
@@ -45,7 +45,7 @@ spec:
     # Allow External connection
     {{- if .Values.externalAccess.enabled }}
     - ports:
-        - port: {{ .Values.listeners.external.port }}
+        - port: {{ .Values.listeners.external.containerPort }}
     {{- if .Values.networkPolicy.externalAccess.from }}
       from: {{- include "common.tplvalues.render" ( dict "value" .Values.networkPolicy.externalAccess.from "context" $ ) | nindent 8 }}
     {{- end }}

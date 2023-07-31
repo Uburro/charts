@@ -13,14 +13,14 @@ acl:
   superUsers: User:admin,User:test_user
 listeners:
   client:
-    port: 9192
+    containerPort: 9192
     protocol: PLAINTEXT
   controller:
-    port: 9193
+    containerPort: 9193
   interbroker:
-    port: 9194
+    containerPort: 9194
   external:
-    port: 9195
+    containerPort: 9195
 service:
   ports:
     client:
