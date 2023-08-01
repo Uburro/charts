@@ -16,49 +16,49 @@ metadata:
   labels: {{- include "common.labels.standard" $ | nindent 4 }}
     app.kubernetes.io/component: kafka
     pod: {{ $targetPod }}
-    {{- if .context.Values.commonLabels }}
-    {{- include "common.tplvalues.render" ( dict "value" .context.Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- if $.Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" $.Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
-    {{- if .context.Values.externalAccess.broker.service.labels }}
-    {{- include "common.tplvalues.render" ( dict "value" .context.Values.externalAccess.broker.service.labels "context" $) | nindent 4 }}
+    {{- if $.Values.externalAccess.broker.service.labels }}
+    {{- include "common.tplvalues.render" ( dict "value" $.Values.externalAccess.broker.service.labels "context" $) | nindent 4 }}
     {{- end }}
-  {{- if or .context.Values.externalAccess.broker.service.annotations .context.Values.commonAnnotations .context.Values.externalAccess.broker.service.loadBalancerAnnotations }}
+  {{- if or $.Values.externalAccess.broker.service.annotations $.Values.commonAnnotations $.Values.externalAccess.broker.service.loadBalancerAnnotations }}
   annotations:
-    {{- if and (not (empty .context.Values.externalAccess.broker.service.loadBalancerAnnotations)) (eq (len .context.Values.externalAccess.broker.service.loadBalancerAnnotations) $replicaCount) }}
-    {{ include "common.tplvalues.render" ( dict "value" (index .context.Values.externalAccess.broker.service.loadBalancerAnnotations $i) "context" $) | nindent 4 }}
+    {{- if and (not (empty $.Values.externalAccess.broker.service.loadBalancerAnnotations)) (eq (len $.Values.externalAccess.broker.service.loadBalancerAnnotations) $replicaCount) }}
+    {{ include "common.tplvalues.render" ( dict "value" (index $.Values.externalAccess.broker.service.loadBalancerAnnotations $i) "context" $) | nindent 4 }}
     {{- end }}
-    {{- if .context.Values.externalAccess.broker.service.annotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .context.Values.externalAccess.broker.service.annotations "context" $) | nindent 4 }}
+    {{- if $.Values.externalAccess.broker.service.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" $.Values.externalAccess.broker.service.annotations "context" $) | nindent 4 }}
     {{- end }}
-    {{- if .context.Values.commonAnnotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .context.Values.commonAnnotations "context" $ ) | nindent 4 }}
+    {{- if $.Values.commonAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" $.Values.commonAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
   {{- end }}
 spec:
-  type: {{ .context.Values.externalAccess.broker.service.type }}
-  {{- if eq .context.Values.externalAccess.broker.service.type "LoadBalancer" }}
-  {{- if and (not (empty .context.Values.externalAccess.broker.service.loadBalancerIPs)) (eq (len .context.Values.externalAccess.broker.service.loadBalancerIPs) $replicaCount) }}
-  loadBalancerIP: {{ index .context.Values.externalAccess.broker.service.loadBalancerIPs $i }}
+  type: {{ $.Values.externalAccess.broker.service.type }}
+  {{- if eq $.Values.externalAccess.broker.service.type "LoadBalancer" }}
+  {{- if and (not (empty $.Values.externalAccess.broker.service.loadBalancerIPs)) (eq (len $.Values.externalAccess.broker.service.loadBalancerIPs) $replicaCount) }}
+  loadBalancerIP: {{ index $.Values.externalAccess.broker.service.loadBalancerIPs $i }}
   {{- end }}
-  {{- if .context.Values.externalAccess.broker.service.loadBalancerSourceRanges }}
-  loadBalancerSourceRanges: {{- toYaml .context.Values.externalAccess.broker.service.loadBalancerSourceRanges | nindent 4 }}
+  {{- if $.Values.externalAccess.broker.service.loadBalancerSourceRanges }}
+  loadBalancerSourceRanges: {{- toYaml $.Values.externalAccess.broker.service.loadBalancerSourceRanges | nindent 4 }}
   {{- end }}
   {{- end }}
-  publishNotReadyAddresses: {{ .context.Values.externalAccess.broker.service.publishNotReadyAddresses }}
+  publishNotReadyAddresses: {{ $.Values.externalAccess.broker.service.publishNotReadyAddresses }}
   ports:
     - name: tcp-kafka
-      port: {{ .context.Values.externalAccess.broker.service.ports.external }}
-      {{- if le (add $i 1) (len .context.Values.externalAccess.broker.service.nodePorts) }}
-      nodePort: {{ index .context.Values.externalAccess.broker.service.nodePorts $i }}
+      port: {{ $.Values.externalAccess.broker.service.ports.external }}
+      {{- if le (add $i 1) (len $.Values.externalAccess.broker.service.nodePorts) }}
+      nodePort: {{ index $.Values.externalAccess.broker.service.nodePorts $i }}
       {{- else }}
       nodePort: null
       {{- end }}
       targetPort: external
-    {{- if .context.Values.externalAccess.broker.service.extraPorts }}
-    {{- include "common.tplvalues.render" (dict "value" .context.Values.externalAccess.broker.service.extraPorts "context" $) | nindent 4 }}
+    {{- if $.Values.externalAccess.broker.service.extraPorts }}
+    {{- include "common.tplvalues.render" (dict "value" $.Values.externalAccess.broker.service.extraPorts "context" $) | nindent 4 }}
     {{- end }}
-  {{- if and (eq .context.Values.externalAccess.broker.service.type "NodePort") (le (add $i 1) (len .context.Values.externalAccess.broker.service.externalIPs)) }}
-  externalIPs: [{{ index .context.Values.externalAccess.broker.service.externalIPs $i | quote }}]
+  {{- if and (eq $.Values.externalAccess.broker.service.type "NodePort") (le (add $i 1) (len $.Values.externalAccess.broker.service.externalIPs)) }}
+  externalIPs: [{{ index $.Values.externalAccess.broker.service.externalIPs $i | quote }}]
   {{- end }}
   selector: {{- include "common.labels.matchLabels" $ | nindent 4 }}
     app.kubernetes.io/part-of: kafka
