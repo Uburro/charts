@@ -782,9 +782,9 @@ Init container definition for Kafka initialization
 Init container definition for waiting for Kubernetes autodiscovery
 */}}
 {{- define "kafka.autoDiscoveryInitContainer" -}}
-{{- $externalAccessService := index .Values.externalAccess .role }}
+{{- $externalAccessService := index .context.Values.externalAccess .role }}
 - name: auto-discovery
-  image: {{ include "kafka.externalAccess.autoDiscovery.image" . }}
+  image: {{ include "kafka.externalAccess.autoDiscovery.image" .context }}
   imagePullPolicy: {{ .context.Values.externalAccess.autoDiscovery.image.pullPolicy | quote }}
   command:
     - /scripts/auto-discovery.sh

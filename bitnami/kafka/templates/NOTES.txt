@@ -27,7 +27,7 @@ In order to replicate the container startup scripts execute this command:
 {{- $fullname := include "common.names.fullname" . }}
 {{- $servicePort := int .Values.service.ports.client }}
 
-{{- if and (or (eq .Values.service.type "LoadBalancer") .Values.externalAccess.enabled) (eq  "PLAINTEXT") }}
+{{- if and (or (eq .Values.service.type "LoadBalancer") .Values.externalAccess.enabled) (eq (upper .Values.listeners.external.protocol) "PLAINTEXT") }}
 ---------------------------------------------------------------------------------------------
  WARNING
 
